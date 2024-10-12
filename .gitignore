@@ -1,0 +1,12 @@
+# Ignorar el directorio de módulos de Node.js
+node_modules
+dist
+dist-ssr
+*.local
+
+# Ignorar archivos de configuración de IDEs
+.vscode/
+.idea/
+
+# Ignorar archivos de entorno
+.env
