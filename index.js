@@ -8,7 +8,7 @@ const cors = require("cors")
 
 //importando rutas
 const comments = require('./routes/comments')
-
+const users = require('./routes/users')
 // Creamos una instancia de la aplicación Express
 const app = express();
 
@@ -23,6 +23,7 @@ app.use(cors({
 connectDB();
 
 comments(app)
+users(app)
 
 // Definimos el puerto en el que escuchará el servidor
 const PORT = process.env.PORT; // Utiliza el puerto especificado en el .env o el 3000 por defecto
@@ -38,5 +39,3 @@ app.listen(PORT, () => {
 //     const comments = await Comment.find();
 //     res.json(comments);
 // });
-
-
