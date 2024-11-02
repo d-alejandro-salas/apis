@@ -24,7 +24,7 @@ class User {
     async login(data) {
         const { email, password } = data;
         try {
-            const user = await UserModel.findOne({ email }); // Línea modificada: agregué `await` aquí
+            const user = await UserModel.findOne({ email }); // Línea modificada: agregué `await` acá
             if (!user) {
                 return { msg: "Usuario inexistente..." }; // manejar código de error
             }
@@ -35,7 +35,7 @@ class User {
             if (!isMatch) {
                 return { msg: "Credenciales inválidas..." }; // manejar código de error
             }
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+            const token = jwt.sign({ name: user.name, role: user.role }, process.env.JWT_SECRET, { expiresIn: '7d', algorithm: 'HS256' });
     
             return {
                 status: "logeado con éxito",
