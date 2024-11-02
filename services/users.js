@@ -22,28 +22,30 @@ class User {
         }
     }
     async login(data) {
-        const { email, password } = data
+        const { email, password } = data;
         try {
-            const user = UserModel.findOne({email}) //SOLUCIONAR: FALTA PASSWORD.
-            if(!user){
-                return {msg: "Usuario inexistente..."} // manejar codigo de error
+            const user = await UserModel.findOne({ email }); // Línea modificada: agregué `await` aquí
+            if (!user) {
+                return { msg: "Usuario inexistente..." }; // manejar código de error
             }
-            console.log("password", password)
-            console.log("user password", user)
-            const isMatch = await bcrypt.compare(password, user.password)
-            if(!isMatch){
-                return {msg: "Credenciales invalidas..."} // manejar codigo de error
+            console.log("password", password);
+            console.log("user password", user.password); // Cambié a user.password
+    
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return { msg: "Credenciales inválidas..." }; // manejar código de error
             }
-            const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '7d'} )
-            
+            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    
             return {
-                status: "logeado con exito",
+                status: "logeado con éxito",
                 token: token
-            }
+            };
         } catch (error) {
-            console.log("Error al iniciar sesion", error)
+            console.log("Error al iniciar sesión", error);
         }
     }
+    
 }
 
 module.exports = User
